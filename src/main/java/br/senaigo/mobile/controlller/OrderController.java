@@ -100,17 +100,15 @@ public class OrderController implements GenericOperationsController<Order> {
 			
 			logger.info(String.format("Registro(s) recuperados(s): %s",orders.toString()));
 			
-//			for (final Order order : orders) {
-//		        Link selfLink = linkTo(methodOn(OrderController.class)
-//		          .getOrderById(customerId, order.getIdOrder()())).withSelfRel();
-//		        order.add(selfLink);
-//		    }
-//		  
-//		    Link link = linkTo(methodOn(CustomerController.class)
-//		      .getOrdersForCustomer(customerId)).withSelfRel();
-//		    Resources<Order> result = new Resources<Order>(orders, link);
-//		    return result;
-			
+			for (final Order order : orders) {
+		        Link selfLink = linkTo(OrderController.class).slash(order.getIdOrder()).withSelfRel();
+		        Link selfLinkPeople = linkTo(OrderController.class).slash(order.getPeople().getIdPeople()).withSelfRel();
+		        order.getPeople().add(selfLinkPeople);
+		        order.add(selfLink);
+		    }
+			 Link link = linkTo(OrderController.class).withSelfRel();
+			 Resources<Order> result = new Resources<Order>(orders, link);
+			 return result;
 		} catch (Exception e) {
 			logger.error(String.format("Erro ao executar o método GET.\nMensagem: %s",e.getMessage()));
 		}

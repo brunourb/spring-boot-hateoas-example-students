@@ -64,15 +64,18 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	@Transactional
-	public void delete(Order entity) {
-		// TODO Auto-generated method stub
+	public void delete(Order order) {
+		try {
+			orderRepository.delete(order);
+		} catch (Exception e) {
+			logger.error("Error ao deletar registro.");
+		}
 		
 	}
 
 	@Override
 	@Transactional
 	public void patch(Order entity) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -106,7 +109,11 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<Order> get() {
-		// TODO Auto-generated method stub
+		try {
+			return orderRepository.findAll();
+		} catch (Exception e) {
+			logger.error("Error ao recuperar registro." +e.getMessage());
+		}
 		return null;
 	}
 
