@@ -102,7 +102,7 @@ public class OrderController implements GenericOperationsController<Order> {
 			
 			for (final Order order : orders) {
 		        Link selfLink = linkTo(OrderController.class).slash(order.getIdOrder()).withSelfRel();
-		        Link selfLinkPeople = linkTo(OrderController.class).slash(order.getPeople().getIdPeople()).withSelfRel();
+		        Link selfLinkPeople = linkTo(PeopleController.class).slash(order.getPeople().getIdPeople()).withSelfRel();
 		        order.getPeople().add(selfLinkPeople);
 		        order.add(selfLink);
 		    }
