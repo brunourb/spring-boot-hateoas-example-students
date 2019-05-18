@@ -101,8 +101,14 @@ public class OrderController implements GenericOperationsController<Order> {
 			logger.info(String.format("Registro(s) recuperados(s): %s",orders.toString()));
 			
 			for (final Order order : orders) {
-		        Link selfLink = linkTo(OrderController.class).slash(order.getIdOrder()).withSelfRel();
-		        Link selfLinkPeople = linkTo(PeopleController.class).slash(order.getPeople().getIdPeople()).withSelfRel();
+		        Link selfLink = linkTo(OrderController.class)
+		        		.slash(order.getIdOrder())
+		        		.withSelfRel();
+		        
+		        Link selfLinkPeople = linkTo(PeopleController.class)
+		        		.slash(order.getPeople().getIdPeople())
+		        		.withSelfRel();
+		        
 		        order.getPeople().add(selfLinkPeople);
 		        order.add(selfLink);
 		    }
